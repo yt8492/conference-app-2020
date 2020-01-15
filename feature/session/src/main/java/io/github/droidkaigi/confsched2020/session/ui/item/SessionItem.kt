@@ -46,12 +46,15 @@ class SessionItem @AssistedInject constructor(
         LayoutInflater.from(context)
     }
 
+    var onClickFavoriteListener: (() -> Unit)? = null
+
     override fun getLayout(): Int = R.layout.item_session
 
     override fun bind(viewBinding: ItemSessionBinding, position: Int) {
         viewBinding.favorite.setOnClickListener {
             sessionsViewModel
                 .favorite(session)
+            onClickFavoriteListener?.invoke()
         }
         viewBinding.favorite.setImageResource(
             if (session.isFavorited)

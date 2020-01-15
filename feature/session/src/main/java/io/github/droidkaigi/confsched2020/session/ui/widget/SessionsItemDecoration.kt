@@ -47,7 +47,17 @@ class SessionsItemDecoration(
             val startTimeText = calcTimeText(position, view)
 
             lastStartTimeText?.let {
-                if (sessionItem.startSessionTime() == it.value) return@forEach
+                if (sessionItem.startSessionTime() == it.value) {
+                    sessionItem.onClickFavoriteListener = {
+                        c.drawText(
+                            startTimeText.value,
+                            startTimeText.positionX,
+                            startTimeText.positionY,
+                            textPaint
+                        )
+                    }
+                    return@forEach
+                }
             }
             lastStartTimeText = startTimeText
 
